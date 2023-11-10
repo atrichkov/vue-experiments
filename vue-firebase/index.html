@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.js"></script>
+</head>
+<body>
+    <h1>Click event, conditional rendering</h1>
+    <div id="app">
+        <!-- click events -->
+        <div v-if="showBooks">
+            <p>{{ title }} - {{ author }} at {{ age }}</p>
+            <!-- <button v-on:click="age++">Increase age</button> -->
+            <button v-on:click="age++">Increase age</button>
+            <div @click="changeTitle('Oathbringer')">change title</div>
+        </div>
+        <button @click="toggleBooks">
+            <span v-if="showBooks">Hide books</span>
+            <span v-else>Show books</span>
+        </button>
+        <div v-show="showBooks">currently showing books</div>
+
+        <!-- mouse events -->
+        <div class="box" @mouseover="handleEvent($event, 5)">mouseover (enter)</div>
+        <div class="box" @mouseleave="handleEvent">mouseleave</div>
+        <div class="box" @dblclick="handleEvent">double click</div>
+        <div class="box" @mousemove="handleMouseMove">position - {{ x }}:{{ y }}</div>
+
+        <!-- loooop -->
+        <ul>
+            <li v-for="(book, key) in filteredBooks" v-bind:class="{ fav: book.isFav }" @click="toggleFav(key)">
+                <img :src="book.img" :alt="title">
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.author }}</p>
+            </li>
+        </ul>
+
+        <!-- attributes binding -->
+        <a :href="url">The Verge</a>
+    </div>
+    <script src='app.js'></script>
+</body>
+</html>
